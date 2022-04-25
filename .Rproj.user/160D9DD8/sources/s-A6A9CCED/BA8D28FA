@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1650740164103.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "BA8D28FA",
+    "lastKnownWriteTime" : 1650773494,
+    "last_content_update" : 1650773494481,
+    "path" : "~/Documents/Duke/thirdyear/causal-final/utils.R",
+    "project_path" : "utils.R",
+    "properties" : {
+        "cursorPosition" : "20,15",
+        "scrollLine" : "8",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

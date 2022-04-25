@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1650744055500.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "9A6599BC",
+    "lastKnownWriteTime" : 1650774821,
+    "last_content_update" : 1650774821715,
+    "path" : "~/Documents/Duke/thirdyear/causal-final/sim3.R",
+    "project_path" : "sim3.R",
+    "properties" : {
+        "cursorPosition" : "7,9",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

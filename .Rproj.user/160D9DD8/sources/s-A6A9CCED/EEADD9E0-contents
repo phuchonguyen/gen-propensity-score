@@ -1,0 +1,97 @@
+---
+title: "Untitled"
+author: "Phuc Nguyen"
+date: "4/22/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+rm(list=ls())
+library(tidyverse)
+load("data/sim1-bootstrap.RData")
+load("data/sim1-observed.RData")
+ci_naive <- rbind(apply(D_naive, 2, quantile, c(0.025, 0.975)), "LM")
+ci_gps <- rbind(apply(D_gps, 2, quantile, c(0.025, 0.975)), "SCM(GPS)")
+ci_ipw <- rbind(apply(D_ipw, 2, quantile, c(0.025, 0.975)), "IPW-GPS")
+ci_pf <- rbind(apply(D_pf, 2, quantile, c(0.025, 0.975)), "SCM(PF)")
+rbind(t(ci_naive), t(ci_gps), t(ci_ipw), t(ci_pf)) %>%
+  as.data.frame() %>%
+  magrittr::set_colnames(c("low", "high", "type")) %>%
+  mutate(t = rep(ts[2:11], 4),
+         d0 = 0,
+         low = as.numeric(low),
+         obs = c(d0_naive, d0_gps, d0_ipw, d0_pf),
+         high = as.numeric(high)) %>%
+  ggplot(aes(x=t, y=obs)) +
+  geom_line(aes(x=t, y=d0), colour='red') +
+  geom_ribbon(aes(ymin=low, ymax=high), alpha=0.5) +
+  geom_point() + geom_line() + 
+  labs(y="Estimated Relative DRF", x="Treatment") + 
+  facet_wrap(vars(type), scales="free")
+ggsave("figures/sim1-free.png", height = 3.5, width = 5)
+```
+
+```{r}
+rm(list=ls())
+load("data/sim2-bootstrap.RData")
+load("data/sim2-observed.RData")
+ci_naive <- rbind(apply(D_naive, 2, quantile, c(0.025, 0.975)), "LM")
+ci_gps <- rbind(apply(D_gps, 2, quantile, c(0.025, 0.975)), "SCM(GPS)")
+ci_ipw <- rbind(apply(D_ipw, 2, quantile, c(0.025, 0.975), na.rm=TRUE), "IPW-GPS")
+ci_pf <- rbind(apply(D_pf, 2, quantile, c(0.025, 0.975)), "SCM(PF)")
+df <- rbind(t(ci_naive), t(ci_gps), t(ci_ipw), t(ci_pf)) %>%
+  as.data.frame() %>%
+  magrittr::set_colnames(c("low", "high", "type")) %>%
+  mutate(t = rep(ts[2:11], 4),
+         y0 = rep(y0[2:11], 4),
+         d0 = rep(d0, 4),
+         low = as.numeric(low),
+         obs = c(d0_naive, d0_gps, d0_ipw, d0_pf),
+         high = as.numeric(high))
+df %>%
+  ggplot(aes(x=t, y=obs)) +
+  geom_line(aes(x=t, y=d0), colour='red') +
+  geom_ribbon(aes(ymin=low, ymax=high), alpha=0.5) +
+  geom_point() + geom_line() + 
+  labs(y="Estimated Relative DRF", x="Treatment") + 
+  facet_wrap(vars(type), scales="free")
+ggsave("figures/sim2-free.png", height = 3.5, width = 5)
+```
+
+```{r}
+rm(list=ls())
+library(tidyverse)
+load("data/sim3-bootstrap.RData")
+load("data/sim3-observed.RData")
+ci_naive <- rbind(apply(D_naive, 2, quantile, c(0.025, 0.975)), "Correct LM")
+ci_mis <- rbind(apply(D_mis, 2, quantile, c(0.025, 0.975)), "LM")
+ci_gps <- rbind(apply(D_gps, 2, quantile, c(0.025, 0.975)), "SCM(GPS)")
+ci_ipw <- rbind(apply(D_ipw, 2, quantile, c(0.025, 0.975), na.rm=TRUE), "IPW-GPS")
+ci_pf <- rbind(apply(D_pf, 2, quantile, c(0.025, 0.975)), "SCM(PF)")
+df <- rbind(t(ci_naive), t(ci_mis), t(ci_gps), t(ci_ipw), t(ci_pf)) %>%
+  as.data.frame() %>%
+  magrittr::set_colnames(c("low", "high", "type")) %>%
+  mutate(t = rep(ts[2:11], 5),
+         y0 = rep(y0[2:11], 5),
+         d0 = rep(d0, 5),
+         low = as.numeric(low),
+         obs = c(d0_naive, d0_mis, d0_gps, d0_ipw, d0_pf),
+         high = as.numeric(high))
+df %>%
+  filter(type!="Correct LM") %>%
+  ggplot(aes(x=t, y=obs)) +
+  geom_line(aes(x=t, y=d0), colour='red') +
+  geom_ribbon(aes(ymin=low, ymax=high), alpha=0.3) +
+  geom_point() + geom_line() + 
+  labs(y="Estimated Relative DRF", x="Treatment") + 
+  facet_wrap(vars(type), scales="free")
+ggsave("figures/sim3-free.png", height = 3.5, width = 5)
+```
+
+
+
+

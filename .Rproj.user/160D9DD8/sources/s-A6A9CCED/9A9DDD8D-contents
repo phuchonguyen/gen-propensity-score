@@ -1,0 +1,28 @@
+#' Propensity score function
+#' Reference: Imai & van Dyk. Causal inference with general treatment regimes: 
+#'   generalizing the propensity score
+
+#' T: observed treatment; Y(t): potential outcome of treatment t
+#' Assumption 1: SUTVA (non-interference between units)
+#' Assumption 2: Strong ignorability: 
+#'   p(T|Y(t),X) = p(T|X) for all t
+#'   0 < p(T|X) for all X
+#' Assumption 3: Uniquely parametrized propensity function:
+#'   there exist \theta s.t. e_\psi(.|X) depends on X only through \theta_\psi(X) 
+#' Result 1: PF is a blancing score: p(T|X) = p(T|X, e_\psi(.|X)) = p(T|e_\psi(.|X)) 
+#' Result 2: p(Y(t)|T, e(.|X)) = p(Y(t)|e(.|X)) = p(Y(t)|\theta(X)) for any t
+#' 
+
+
+
+#' i) model e_\psi(T|X) ii) estimate \psi 
+#' iii) compute \theta for each observation and subclassify into J classes
+#' iv) within each class, model p_\phi(Y(t)|T=t)
+#' v) weighted average of causal effect
+
+
+
+
+
+
+
